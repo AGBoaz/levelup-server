@@ -1,0 +1,24 @@
+[
+    {
+        "model": "levelupapi.event",
+        "pk": 1,
+        "fields": {
+            "organizer": 1,
+            "name": "super really fun event",
+            "date": null,
+            "location":"the woods?",
+            "game":2
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 2,
+        "fields": {
+            "organizer": 1,
+            "name": "only cool guys allowed",
+            "location":"under any bridge",
+            "date": null,
+            "game":1
+        }
+    }
+]

@@ -1,0 +1,22 @@
+[
+    {
+        "model": "levelupapi.game",
+        "pk": 1,
+        "fields": {
+            "name": "mafia",
+            "description": "find the murderer and their accomplice",
+            "game_type":2,
+            "gamer":1
+        }
+    },
+    {
+        "model": "levelupapi.game",
+        "pk": 2,
+        "fields": {
+            "name": "hues and cues",
+            "description": "get the team to guess a color based on vibes",
+            "game_type":1,
+            "gamer":1
+        }
+    }
+]
