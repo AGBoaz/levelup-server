@@ -33,6 +33,25 @@ class GameView(ViewSet):
         return Response(serializer.data)
 
 
+    def create(self, request):
+        """Handle POST operations
+        
+        returns
+            Response -- JSON serialized game instance
+        """
+        game_type = GameType.objects.get(pk=request.data["game_type"])
+        gamer = Gamer.objects.get(user=request.auth.user)
+
+        game = Game.objects.create(
+            name = request.data["name"],
+            description = request.data["description"],
+            game_type=game_type,
+            gamer=gamer
+        )
+        serializer = GameSerializer(game)
+        return Response(serializer.data)
+
+
 class GameGamerSerializer(serializers.ModelSerializer):
     """ to serialize the gamer in GamerSerializer """
     class Meta:
