@@ -49,7 +49,7 @@ class GameView(ViewSet):
             gamer=gamer
         )
         serializer = GameSerializer(game)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class GameGamerSerializer(serializers.ModelSerializer):
