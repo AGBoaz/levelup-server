@@ -69,6 +69,15 @@ class GameView(ViewSet):
 
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
+    def destroy(self, request, pk):
+        """Handle DELETE requests for a game 
+        Returns:
+            Response -- Empty body with 204 status code 
+        """
+        game = Game.objects.get(pk=pk)
+        game.delete()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+        
 
 class GameGamerSerializer(serializers.ModelSerializer):
     """ to serialize the gamer in GamerSerializer """
