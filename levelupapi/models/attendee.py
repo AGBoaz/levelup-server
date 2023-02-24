@@ -1,5 +1,5 @@
 from django.db import models
 
 class Attendee(models.Model):
-    gamer = models.ManyToManyField("Gamer")
+    gamer = models.ForeignKey("Gamer", on_delete=models.CASCADE)
     event = models.ForeignKey("Event", on_delete=models.CASCADE)
