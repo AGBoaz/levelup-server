@@ -30,6 +30,11 @@ class EventView(ViewSet):
         """
 
         event = Event.objects.all()
+        # Set the `joined` property on every event
+        for event in events:
+            # Check to see if the gamer is in the attendees list on the event
+            event.joined = gamer in event.attendees.all()
+        
         serializer = EventSerializer(event, many=True)
         return Response(serializer.data)
 
@@ -94,12 +99,21 @@ class EventView(ViewSet):
         #
         event.attendees.add(gamer)
         return Response({'message': 'Gamer added'}, status=status.HTTP_201_CREATED)
-    
 
+    @action(methods=['delete'], detail=True)
+    def leave(self, request, pk):
+        """Delete request for a user to leave an event"""
+        #the gamer is the current user
+        gamer = Gamer.objects.get(user=request.auth.user)
+        #an event is specified by primary key
+        event = Event.objects.get(pk=pk)
+
+        event.attendees.remove(gamer)
+        return Response({'message': 'Gamer removed'}, status=status.HTTP_204_NO_CONTENT)
 
 class EventSerializer(serializers.ModelSerializer):
     """JSON serializer for game types
     """
     class Meta:
         model = Event
-        fields = ('id', 'organizer', 'name', 'date', 'location', 'game')
+        fields = ('id', 'organizer', 'name', 'date', 'location', 'game', 'joined')
