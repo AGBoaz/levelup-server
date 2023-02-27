@@ -29,13 +29,14 @@ class EventView(ViewSet):
             Response -- JSON serialized list of events
         """
 
-        event = Event.objects.all()
+        events = Event.objects.all()
+        gamer = Gamer.objects.get(user=request.auth.user)
         # Set the `joined` property on every event
         for event in events:
             # Check to see if the gamer is in the attendees list on the event
             event.joined = gamer in event.attendees.all()
-        
-        serializer = EventSerializer(event, many=True)
+
+        serializer = EventSerializer(events, many=True)
         return Response(serializer.data)
 
 
@@ -96,7 +97,7 @@ class EventView(ViewSet):
         gamer = Gamer.objects.get(user=request.auth.user)
         #an event is specified by primary key
         event = Event.objects.get(pk=pk)
-        #
+
         event.attendees.add(gamer)
         return Response({'message': 'Gamer added'}, status=status.HTTP_201_CREATED)
 
